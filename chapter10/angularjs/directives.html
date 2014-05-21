@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="exampleApp">
+<head>
+  <title>Directives</title>
+  <script src="angular.js"></script>
+  <link rel="stylesheet" href="bootstrap.css">
+  <link rel="stylesheet" href="bootstrap-theme.css">
+  <script>
+    angular.module('exampleApp', [])
+    .controller('defaultCtrl', function($scope) {
+
+      $scope.todos = [
+          {action: 'Get Groceries', complete: false},
+          {action: 'Call Plumber', complete: false},
+          {action: 'Buy Running Shoes', complete: true},
+          {action: 'Buy Flowers', complete: false},
+          {action: 'Call Family', complete: false}];
+
+      $scope.viewFile = function() {
+        return $scope.showList ? 'list.html' : 'table.html';
+      };
+
+      $scope.reportChange = function() {
+        console.log('Displayed content: ' + $scope.viewFile());
+      };
+
+    });
+
+  </script>
+  <style>
+    .odd {background-color: lightCoral;}
+    .even {background-color: lavenderblush;}
+  </style>
+</head>
+<body>
+  <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+    <h3 class="panel-header">To Do List</h3>
+
+    <div class="well">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" ng-model="showList" />
+          Use the list view
+        </label>
+      </div>
+    </div>
+
+    <div ng-include="viewFile()" onload="reportChange()"></div>
+  </div>
+</body>
+</html>
